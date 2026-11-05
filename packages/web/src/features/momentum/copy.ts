@@ -1,6 +1,6 @@
 import type { MomentumLevel } from '@lanes/shared';
 
-// Tier lines (docs/06 §A2). Short, calm, no hype, no guilt. One line is chosen per day and tier,
+// Tier lines (docs/build-kit/06 §A2). Short, calm, no hype, no guilt. One line is chosen per day and tier,
 // so it doesn't flicker on every update but doesn't go stale across days either.
 export const TIER_POOL: Record<MomentumLevel, string[]> = {
   0: [

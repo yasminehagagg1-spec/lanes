@@ -43,7 +43,7 @@ async function fillBoard() {
   h.advance(25);
   await h.api('POST', `/api/focus/${focus.id}/end`, { outcome: 'completed_task' });
   await h.api('PATCH', `/api/subtasks/${a.subtasks[0]!.id}`, { done: true });
-  await h.api('PATCH', '/api/settings', { dailyGoal: 7, displayName: 'Yasmine H' });
+  await h.api('PATCH', '/api/settings', { dailyGoal: 7, displayName: 'Sam' });
   return { a, b };
 }
 
@@ -69,7 +69,7 @@ describe('export', () => {
     expect(data.subtasks.filter((s) => s.done)).toHaveLength(1);
     expect(data.focusSessions).toHaveLength(1);
     expect(data.reminders[0]).toMatchObject({ dismissed: false });
-    expect(data.settings).toMatchObject({ dailyGoal: 7, displayName: 'Yasmine H' });
+    expect(data.settings).toMatchObject({ dailyGoal: 7, displayName: 'Sam' });
   });
 });
 

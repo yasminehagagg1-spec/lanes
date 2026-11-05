@@ -1,4 +1,4 @@
--- Lanes initial schema (docs/03-DATA-MODEL.md §1).
+-- Lanes initial schema (docs/build-kit/03-DATA-MODEL.md §1).
 -- PRAGMAs (WAL, foreign keys) are set on every connection in connection.ts,
 -- because journal_mode can't change inside the migration transaction.
 
@@ -86,7 +86,7 @@ CREATE TABLE settings (
 );
 
 INSERT INTO settings (key, value) VALUES
-  ('display_name',   '"Yasmine"'),
+  ('display_name',   '"there"'),
   ('daily_goal',     '5'),
   ('day_start_hour', '6'),
   ('sounds',         'true'),

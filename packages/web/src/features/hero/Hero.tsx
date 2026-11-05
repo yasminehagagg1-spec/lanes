@@ -100,7 +100,7 @@ export function Hero() {
           </div>
 
           <p className="mt-6 mb-0 max-w-[31rem] text-[1.0625rem] leading-relaxed">
-            <strong className="font-semibold">Hey {settings?.displayName ?? 'Yasmine'}.</strong>{' '}
+            <strong className="font-semibold">Hey {settings?.displayName ?? 'there'}.</strong>{' '}
             <span className="text-on-royal-2">
               {line} Pick one thing and give it your whole attention.
             </span>

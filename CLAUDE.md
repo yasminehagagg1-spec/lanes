@@ -3,13 +3,13 @@
 You are building **Lanes**, a local-only task manager for one person (Yasmine, a designer/front-end dev juggling many clients at once) on macOS. Read this file fully, then the docs in order before writing code.
 
 ## Read first (in order)
-1. `docs/01-PRD.md` — what and why, acceptance criteria
-2. `docs/02-ARCHITECTURE.md` — stack, repo layout, server, security
-3. `docs/03-DATA-MODEL.md` — SQLite schema, types, stage rules
-4. `docs/04-API.md` — endpoints + SSE events
-5. `docs/05-CLAUDE-INTEGRATION.md` — MCP server + `/task` skill
-6. `docs/06-MOTIVATION-AND-EXTRAS.md` — momentum math, celebrations, quick capture, focus, pick-for-me
-7. `docs/07-BUILD-PLAN.md` — phases; follow them in order
+1. `docs/build-kit/01-PRD.md` — what and why, acceptance criteria
+2. `docs/build-kit/02-ARCHITECTURE.md` — stack, repo layout, server, security
+3. `docs/build-kit/03-DATA-MODEL.md` — SQLite schema, types, stage rules
+4. `docs/build-kit/04-API.md` — endpoints + SSE events
+5. `docs/build-kit/05-CLAUDE-INTEGRATION.md` — MCP server + `/task` skill
+6. `docs/build-kit/06-MOTIVATION-AND-EXTRAS.md` — momentum math, celebrations, quick capture, focus, pick-for-me
+7. `docs/build-kit/07-BUILD-PLAN.md` — phases; follow them in order
 8. `design/DESIGN-SYSTEM.md`, `design/tokens.css`, `design/tailwind-theme.css`, `design/COMPONENTS-21ST.md`
 9. `design/mockup.html` + `design/mockup.png` — the visual target.
 
@@ -34,7 +34,7 @@ pnpm workspaces · TypeScript strict · React 19 + Vite · Tailwind v4 · shadcn
 - Use `LANES_DATA_DIR=./.data-dev` in development so the real data folder is never touched by dev/test runs.
 
 ## Working style
-- Work phase by phase from `docs/07-BUILD-PLAN.md`. At the end of each phase: tests green, screenshot the UI with Playwright at 1440×900, compare with `design/mockup.png`, fix drift, then summarize what changed and stop for review.
+- Work phase by phase from `docs/build-kit/07-BUILD-PLAN.md`. At the end of each phase: tests green, screenshot the UI with Playwright at 1440×900, compare with `design/mockup.png`, fix drift, then summarize what changed and stop for review.
 - Keep `packages/shared` pure and unit-tested (parser and progress math especially).
 - Small components, feature folders, no giant files. No `any`.
 - When a 21st.dev install fails (daily free limit), build the piece from shadcn/Radix primitives following the design spec rather than waiting.

@@ -27,7 +27,7 @@ function ComboChip({ combo }: { combo: number }) {
   );
 }
 
-/** Glass card on the hero (docs/06 §A1–A3). */
+/** Glass card on the hero (docs/build-kit/06 §A1–A3). */
 export function MomentumCard({ stats }: { stats: TodayStats | undefined }) {
   const today = useTodayKey();
   const combo = useCombo();

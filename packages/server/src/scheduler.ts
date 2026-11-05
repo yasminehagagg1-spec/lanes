@@ -1,4 +1,4 @@
-// Reminder + postponed loop (docs/02 §4). Runs inside the server, so reminders fire
+// Reminder + postponed loop (docs/build-kit/02 §4). Runs inside the server, so reminders fire
 // with the browser tab closed. Every tick:
 //   1. Postponed tasks whose "back on" day has arrived return to New (with a reminder).
 //   2. Due reminders fire: macOS notification + `reminder.fired` over SSE.

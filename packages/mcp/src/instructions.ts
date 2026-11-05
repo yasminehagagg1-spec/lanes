@@ -12,9 +12,9 @@ export const FIELD_GUIDE = `How to fill in a task:
 - stage: default new. "already started" → in_process. "waiting on X" → pending with pendingReason.
 - Never invent details that weren't said. Don't ask follow-up questions unless the title itself is unclear: add the task, then say what you assumed.`;
 
-export const INSTRUCTIONS = `Lanes is Yasmine's local task manager: a board with five stages (New, In process, Pending, Done, Postponed), running on her Mac.
-She adds tasks with the /task command. Otherwise only create, move or change tasks when she asks.
-Use list_tasks, get_task or today to answer questions about her work. Tasks can be referred to by id or by a few words of the title.
+export const INSTRUCTIONS = `Lanes is the user's local task manager: a board with five stages (New, In process, Pending, Done, Postponed), running on their Mac.
+They add tasks with the /task command. Otherwise only create, move or change tasks when they ask.
+Use list_tasks, get_task or today to answer questions about their work. Tasks can be referred to by id or by a few words of the title.
 Moving to Pending needs a reason (what it's waiting on). Deleting stays a human action in the app.
 
 ${FIELD_GUIDE}`;

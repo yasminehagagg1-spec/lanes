@@ -194,7 +194,7 @@ scripts/install-launchagent.sh   # builds Lanes, starts it now and at every logi
 lanes open                       # → http://localhost:4747
 ```
 
-That's it. To make it an app in the Dock: in Chrome, ⋮ → *Cast, save and share* → *Install page as app*. In Safari: *File → Add to Dock*.
+That's it. The board says *Hey there* until you add your name in Settings. To make it an app in the Dock: in Chrome, ⋮ → *Cast, save and share* → *Install page as app*. In Safari: *File → Add to Dock*.
 
 <details>
 <summary><b>The <code>lanes</code> command</b></summary>
@@ -343,7 +343,7 @@ lanes/
 ├─ claude/skills/task/   the /task skill
 ├─ scripts/     lanes CLI · install-launchagent · connect-claude · icons · README demos
 ├─ e2e/         Playwright browser tests
-├─ docs/        product spec, architecture, data model, API, Claude integration, build plan
+├─ docs/        README media · build-kit/ (the original spec Lanes was built from)
 └─ design/      design system, tokens, mockup
 ```
 

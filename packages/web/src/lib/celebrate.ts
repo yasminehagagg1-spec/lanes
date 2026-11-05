@@ -1,4 +1,4 @@
-// Reward moments (docs/06 §A). Every effect checks the Celebration setting and reduced motion:
+// Reward moments (docs/build-kit/06 §A). Every effect checks the Celebration setting and reduced motion:
 //   full   → stamp + confetti + sound (if Sounds is on)
 //   subtle → stamp + bar only (no confetti, no sound)
 //   off    → nothing extra; the bar still updates

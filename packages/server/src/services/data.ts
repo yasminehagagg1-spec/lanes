@@ -1,4 +1,4 @@
-// Export / import (docs/03-DATA-MODEL.md §6). The file holds every row, including tasks in the
+// Export / import (docs/build-kit/03-DATA-MODEL.md §6). The file holds every row, including tasks in the
 // undo window, so Export → wipe → Import gives back exactly what was there.
 import { z } from 'zod';
 import {

@@ -186,7 +186,7 @@ export type Settings = z.infer<typeof SettingsSchema>;
 export const SettingsPatchSchema = SettingsSchema.partial().strict();
 
 export const DEFAULT_SETTINGS: Settings = {
-  displayName: 'Yasmine',
+  displayName: 'there',
   dailyGoal: 5,
   dayStartHour: 6,
   sounds: true,

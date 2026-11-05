@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Lanes MCP server — the bridge Claude uses to add and read tasks (docs/05-CLAUDE-INTEGRATION.md).
+// Lanes MCP server — the bridge Claude uses to add and read tasks (docs/build-kit/05-CLAUDE-INTEGRATION.md).
 // stdio transport: stdout belongs to the protocol, so anything else goes to stderr.
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { createClient, tokenReader } from './client.js';

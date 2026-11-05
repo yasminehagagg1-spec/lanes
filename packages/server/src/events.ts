@@ -1,6 +1,6 @@
 import type { Note, Reminder, Task, TodayStats } from '@lanes/shared';
 
-/** Server-Sent Events pushed to open tabs (docs/04-API.md, "Events"). */
+/** Server-Sent Events pushed to open tabs (docs/build-kit/04-API.md, "Events"). */
 export type LanesEvent =
   | { type: 'task.created'; data: { task: Task; stats: TodayStats } }
   | { type: 'task.updated'; data: { task: Task; stats?: TodayStats } }

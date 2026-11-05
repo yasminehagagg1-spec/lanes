@@ -1,6 +1,6 @@
 ---
 name: task
-description: Add a task to Lanes, Yasmine's local task manager. Runs when she types /task followed by the task in plain words.
+description: Add a task to Lanes, your local task manager. Runs when you type /task followed by the task in plain words.
 argument-hint: <the task in plain words — dates, project, priority, reminders, steps>
 disable-model-invocation: true
 allowed-tools: mcp__lanes__add_task mcp__lanes__parse_task mcp__lanes__list_tasks
@@ -32,7 +32,7 @@ If nothing follows `/task`, ask what the task is.
 - **due** — pass the date words as said: "tomorrow 3pm", "by Thursday", "بكرة الساعة ٥".
   A date alone means the end of that day.
 - **reminders** — "remind me at 1" → `[{ "at": "1pm" }]` (a bare time lands on the due day).
-  Leave `reminders` out and a timed due gets one an hour before. Pass `[]` if she says no reminder.
+  Leave `reminders` out and a timed due gets one an hour before. Pass `[]` if the user says no reminder.
 - **subtasks** — any list: "1) … 2) …", bullets, "first … then …".
 - **energy** — only if stated or obvious: "quick email" → `low`, "design the whole identity" → `high`.
 - **estimateMin** — only if a duration is said ("30 min job" → 30).

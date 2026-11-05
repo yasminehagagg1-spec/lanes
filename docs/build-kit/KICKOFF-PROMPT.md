@@ -8,7 +8,7 @@ We're building **Lanes**, my local task manager. Everything you need is in this 
 
 1. Read `CLAUDE.md` and every file it lists, and look at `design/mockup.png`.
 2. Before writing code, give me a short summary of what you understood (stages, data storage, Claude connection, momentum system, the three extras) and list anything that's unclear or that you'd change. Keep it under 20 lines.
-3. After I confirm, start **Phase 0** from `docs/07-BUILD-PLAN.md`. The spec folders stay where they are; build the app in this same folder following the repo layout in `docs/02-ARCHITECTURE.md`.
+3. After I confirm, start **Phase 0** from `docs/build-kit/07-BUILD-PLAN.md`. The spec folders stay where they are; build the app in this same folder following the repo layout in `docs/build-kit/02-ARCHITECTURE.md`.
 4. At the end of each phase: run the tests, screenshot the UI at 1440×900, compare it to `design/mockup.png`, then stop and tell me what's done and what's next.
 
 My brand fonts (Marine Elmoure, Madinet Al Bat) will go in `packages/web/public/fonts/` — use the fallbacks until they're there.
