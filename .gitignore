@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.data-dev/
+.data-e2e/
+.data-demo/
+.data-demo-video/
+test-results/
+playwright-report/
+e2e/screenshots/
+*.log
+.DS_Store
+.env*
+# Licensed brand fonts stay on this Mac
+packages/web/public/fonts/*.woff2
+packages/web/public/fonts/*.woff
+packages/web/public/fonts/*.otf
+packages/web/public/fonts/*.ttf

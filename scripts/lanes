@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+# lanes — start, stop and check the Lanes server.
+#
+#   lanes start    wake Lanes (via the login service if installed)
+#   lanes stop     put it to sleep (it wakes again at login)
+#   lanes status   is it awake? how many tasks? where's the data?
+#   lanes open     open the board in the browser (wakes it first)
+#   lanes backup   save a backup now
+#   lanes token    print the key other tools (curl, Claude) use
+#   lanes logs     show the end of the server log
+set -euo pipefail
+
+SELF="$(readlink -f "$0" 2>/dev/null || echo "$0")"
+ROOT="$(cd "$(dirname "$SELF")/.." && pwd)"
+LABEL="${LANES_LABEL:-com.yasmine.lanes}"
+PLIST="${LANES_AGENTS_DIR:-$HOME/Library/LaunchAgents}/$LABEL.plist"
+PORT="${LANES_PORT:-4747}"
+DATA="${LANES_DATA_DIR:-$HOME/Library/Application Support/Lanes}"
+URL="http://localhost:$PORT"
+PIDFILE="$DATA/lanes.pid"
+SERVER="$ROOT/packages/server/dist/index.js"
+
+find_node() {
+  local n
+  for n in "$(command -v node 2>/dev/null || true)" "$HOME/.local/node/bin/node" /opt/homebrew/bin/node /usr/local/bin/node; do
+    if [ -n "$n" ] && [ -x "$n" ]; then echo "$n"; return; fi
+  done
+  echo "Lanes needs Node 22+, and none was found." >&2
+  exit 1
+}
+
+health() { curl -sf --max-time 2 "http://127.0.0.1:$PORT/api/health"; }
+agent_installed() { [ -f "$PLIST" ]; }
+agent_loaded() { launchctl print "gui/$(id -u)/$LABEL" >/dev/null 2>&1; }
+
+wait_awake() {
+  for _ in $(seq 1 50); do
+    health >/dev/null && return 0
+    sleep 0.3
+  done
+  return 1
+}
+
+ensure_built() {
+  if [ -f "$SERVER" ] && [ -f "$ROOT/packages/web/dist/index.html" ]; then return; fi
+  local node; node="$(find_node)"
+  echo "Building Lanes (first run)…"
+  (cd "$ROOT" && PATH="$(dirname "$node"):$PATH" pnpm --silent build)
+}
+
+cmd_start() {
+  if health >/dev/null; then echo "Lanes is already awake at $URL"; return; fi
+  ensure_built
+  if agent_installed; then
+    if agent_loaded; then
+      launchctl kickstart -k "gui/$(id -u)/$LABEL"
+    else
+      launchctl bootstrap "gui/$(id -u)" "$PLIST"
+    fi
+  else
+    local node; node="$(find_node)"
+    mkdir -p "$DATA/logs"
+    LANES_PORT="$PORT" LANES_DATA_DIR="$DATA" nohup "$node" "$SERVER" \
+      >/dev/null 2>>"$DATA/logs/lanes-cli.err.log" &
+    echo $! >"$PIDFILE"
+  fi
+  if wait_awake; then
+    echo "Lanes is awake at $URL"
+  else
+    echo "Lanes didn't wake up. See: lanes logs" >&2
+    exit 1
+  fi
+}
+
+cmd_stop() {
+  if agent_loaded; then
+    launchctl bootout "gui/$(id -u)/$LABEL"
+    # bootout returns before launchd has finished; starting again too soon fails.
+    for _ in $(seq 1 50); do agent_loaded || break; sleep 0.1; done
+    echo "Lanes is asleep. It wakes again at login, or with: lanes start"
+  elif [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    kill "$(cat "$PIDFILE")"
+    for _ in $(seq 1 25); do kill -0 "$(cat "$PIDFILE")" 2>/dev/null || break; sleep 0.2; done
+    rm -f "$PIDFILE"
+    echo "Lanes is asleep."
+  elif health >/dev/null; then
+    echo "Lanes is running, but not from here (maybe \`pnpm start\` in a terminal). Stop it there." >&2
+    exit 1
+  else
+    echo "Lanes is already asleep."
+  fi
+}
+
+cmd_status() {
+  local login="no"; agent_installed && login="yes"
+  local json
+  if json="$(health)"; then
+    local node; node="$(find_node)"
+    "$node" -e '
+      const h = JSON.parse(process.argv[1]);
+      console.log(`Lanes is awake at ${process.argv[2]}`);
+      console.log(`  tasks:   ${h.tasks}`);
+      console.log(`  data:    ${h.dataDir}`);
+      console.log(`  version: ${h.version}`);
+    ' "$json" "$URL"
+    echo "  starts at login: $login"
+  else
+    echo "Lanes is asleep. Wake it with: lanes start"
+    echo "  starts at login: $login"
+    exit 3
+  fi
+}
+
+cmd_open() {
+  health >/dev/null || cmd_start
+  open "$URL"
+}
+
+cmd_backup() {
+  if ! health >/dev/null; then echo "Lanes is asleep. Run lanes start first." >&2; exit 1; fi
+  local token; token="$(cat "$DATA/token")"
+  local out; out="$(curl -sf -X POST -H "authorization: Bearer $token" "http://127.0.0.1:$PORT/api/data/backup")"
+  local node; node="$(find_node)"
+  "$node" -e 'console.log(`Backup saved: ${process.argv[2]}/backups/${JSON.parse(process.argv[1]).name}`)' "$out" "$DATA"
+}
+
+cmd_token() {
+  if [ ! -f "$DATA/token" ]; then echo "No key yet. Start Lanes once: lanes start" >&2; exit 1; fi
+  echo "($DATA/token)" >&2
+  cat "$DATA/token"
+}
+
+cmd_logs() {
+  local log="$DATA/logs/server.log"
+  [ -f "$log" ] && tail -n "${1:-40}" "$log" || echo "No log yet at $log"
+  for extra in "$DATA/logs/launchd.err.log" "$DATA/logs/lanes-cli.err.log"; do
+    if [ -s "$extra" ]; then echo; echo "── $(basename "$extra")"; tail -n 15 "$extra"; fi
+  done
+}
+
+case "${1:-help}" in
+  start) cmd_start ;;
+  stop) cmd_stop ;;
+  restart) cmd_stop >/dev/null || true; cmd_start ;;
+  status) cmd_status ;;
+  open) cmd_open ;;
+  backup) cmd_backup ;;
+  token) cmd_token ;;
+  logs) shift; cmd_logs "${1:-40}" ;;
+  help | -h | --help) sed -n '2,10p' "$SELF" | sed 's/^# \{0,1\}//' ;;
+  *) echo "Unknown command: $1 (try: lanes help)" >&2; exit 1 ;;
+esac

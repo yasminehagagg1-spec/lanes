@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    // Tests also read the server's test harness; the build narrows this to src.
+    "rootDir": "../..",
+    "types": ["node"]
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lanes — board mockup</title>
+<!-- Static visual reference for Claude Code. Not production code. Fonts fall back to Google Fonts
+     until Yasmine's Marine Elmoure / Madinet Al Bat files are added. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=Archivo:wdth,wght@125,800;125,900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text); font: 400 var(--fs-body)/var(--lh-body) var(--font-body); -webkit-font-smoothing: antialiased; }
+  .ar { font-family: var(--font-ar); }
+  .num { font-variant-numeric: tabular-nums; }
+  .frame { max-width: var(--frame-max); margin: 0 auto; padding: 24px 28px 48px; }
+
+  /* Header */
+  .hdr { display: flex; align-items: center; gap: 14px; padding: 4px 4px 22px; }
+  .rbtn { width: 48px; height: 48px; border-radius: 50%; background: var(--surface); border: 0; display: grid; place-items: center; color: var(--text); box-shadow: var(--shadow-card); }
+  .rbtn svg { width: 20px; height: 20px; }
+  .logo { width: 44px; height: 44px; border-radius: 13px; background: var(--royal); display: grid; place-items: center; position: relative; overflow: hidden; }
+  .logo b { font: 900 22px/1 var(--font-display); font-stretch: 125%; color: #fff; }
+  .logo i { position: absolute; left: 6px; right: 6px; bottom: 6px; height: 4px; border-radius: 4px; background: var(--yellow); transform: rotate(-6deg); }
+  .brand { line-height: 1.1; }
+  .brand strong { font-weight: 600; font-size: 17px; display: block; }
+  .brand span { color: var(--text-3); font-size: 14px; }
+  .hdr .spacer { flex: 1; }
+  .search { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 18px 0 6px; border-radius: var(--r-pill); background: transparent; color: var(--text-3); font-size: 14px; }
+  .search kbd { font: 500 12px var(--font-body); background: var(--surface); border-radius: 6px; padding: 2px 7px; color: var(--text-2); }
+  .bell { position: relative; }
+  .bell::after { content: ""; position: absolute; top: 11px; right: 12px; width: 8px; height: 8px; border-radius: 50%; background: var(--scribble-red); border: 2px solid #fff; }
+  .viewtabs { display: flex; background: var(--surface); border-radius: var(--r-pill); padding: 4px; box-shadow: var(--shadow-card); }
+  .viewtabs button { border: 0; background: transparent; font: 500 13px var(--font-body); padding: 9px 16px; border-radius: var(--r-pill); color: var(--text-2); }
+  .viewtabs .on { background: var(--charcoal); color: #fff; }
+
+  /* Hero */
+  .bg-royal-grid { background-color: var(--royal); background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px); background-size: 56px 56px; }
+  .hero { position: relative; border-radius: var(--r-xl); color: var(--on-royal); padding: 34px 44px 36px; display: grid; grid-template-columns: 1fr 420px; gap: 32px; min-height: 340px; }
+  .datechip { display: flex; align-items: center; gap: 14px; }
+  .datechip .d { width: 64px; height: 64px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.45); display: grid; place-items: center; font: 800 26px/1 var(--font-display); font-stretch: 125%; }
+  .datechip p { font-size: 15px; line-height: 1.25; color: var(--on-royal-2); }
+  .datechip p b { color: #fff; font-weight: 500; }
+  .mega { position: relative; margin-top: 18px; font: 900 var(--fs-mega)/var(--lh-tight) var(--font-display); font-stretch: 125%; letter-spacing: var(--tracking-display); text-transform: uppercase; }
+  .mega .ar-over { position: absolute; left: 63%; top: 4%; font: 800 clamp(2.2rem, 4.6vw, 4.2rem)/1 var(--font-ar); color: var(--yellow); transform: rotate(-5deg); letter-spacing: 0; text-shadow: 0 6px 24px rgba(9,30,70,.35); }
+  .greet { margin-top: 18px; font-size: 17px; color: var(--on-royal-2); max-width: 46ch; }
+  .greet b { color: #fff; font-weight: 500; }
+  .actions { display: flex; gap: 12px; margin-top: 22px; }
+  .pill { height: 50px; padding: 0 22px; border-radius: var(--r-pill); border: 0; font: 600 15px var(--font-body); display: inline-flex; align-items: center; gap: 10px; }
+  .pill.yellow { background: var(--yellow); color: var(--charcoal); }
+  .pill.ghost { background: transparent; color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.55); }
+  .pill kbd { font: 600 11px var(--font-body); background: rgba(30,30,30,.12); border-radius: 6px; padding: 2px 6px; }
+  .pill.ghost kbd { background: rgba(255,255,255,.16); }
+
+  .glass { align-self: center; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); box-shadow: var(--shadow-glass); border-radius: var(--r-lg); padding: 24px 26px 22px; position: relative; z-index: 2; }
+  .glass .lbl { font-size: 14px; color: var(--on-royal-2); display: flex; justify-content: space-between; }
+  .bigcount { display: flex; align-items: baseline; gap: 8px; margin-top: 6px; }
+  .bigcount b { font: 900 76px/0.9 var(--font-display); font-stretch: 125%; }
+  .bigcount span { font: 800 30px/1 var(--font-display); font-stretch: 125%; color: var(--on-royal-2); }
+  .bigcount em { font-style: normal; font-size: 14px; color: var(--on-royal-2); margin-left: 4px; }
+  .combo { margin-left: auto; align-self: center; background: var(--yellow); color: var(--charcoal); font: 700 14px var(--font-body); padding: 6px 12px; border-radius: 14px 14px 14px 4px; }
+  .bar { position: relative; height: 18px; border-radius: var(--r-pill); background: rgba(255,255,255,.2); margin-top: 18px; }
+  .bar i { position: absolute; inset: 0 auto 0 0; width: 70%; border-radius: inherit; background: linear-gradient(180deg, #F8D54F, var(--yellow)); box-shadow: inset 0 2px 0 rgba(255,255,255,.45); }
+  .bar .ticks { position: absolute; inset: 0; display: flex; justify-content: space-evenly; pointer-events: none; }
+  .bar .ticks u { width: 2px; background: rgba(25,92,182,.25); }
+  .bar .spark { position: absolute; left: calc(70% - 16px); top: -16px; width: 32px; color: #fff; }
+  .tier { margin-top: 14px; font-size: 15px; display: flex; justify-content: space-between; color: #fff; }
+  .tier small { color: var(--on-royal-2); font-size: 13px; }
+
+  .loop { position: absolute; left: 50%; top: 168px; width: 130px; color: var(--yellow); transform: rotate(-6deg); z-index: 1; }
+
+  .sticker { position: absolute; right: 410px; bottom: -44px; width: 150px; height: 150px; z-index: 3; }
+  .sticker .ring { animation: spin 18s linear infinite; transform-origin: 50% 50%; }
+  .sticker .mid { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: var(--charcoal); }
+  .sticker .mid b { display: block; font: 900 40px/0.9 var(--font-display); font-stretch: 125%; }
+  .sticker .mid span { font: 600 12px var(--font-body); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .sticker .ring { animation: none; } }
+
+  /* Board toolbar */
+  .toolbar { display: flex; align-items: center; gap: 10px; margin: 40px 4px 16px; flex-wrap: wrap; }
+  .toolbar h2 { font-size: 22px; font-weight: 600; margin-right: 10px; }
+  .chipbtn { height: 38px; padding: 0 14px; border-radius: var(--r-pill); background: var(--surface); border: 0; font: 500 13px var(--font-body); color: var(--text); display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow-card); }
+  .chipbtn .x { color: var(--text-3); }
+  .chipbtn .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .toolbar .spacer { flex: 1; }
+
+  /* Board */
+  .board { display: grid; grid-template-columns: repeat(4, minmax(250px, 1fr)) minmax(220px, .8fr); gap: 14px; align-items: start; }
+  .lane { background: var(--lane-bg); border-radius: var(--r-lg); padding: 12px; }
+  .lane.postponed { background: transparent; box-shadow: inset 0 0 0 1.5px var(--grey-200); }
+  .lane-h { display: flex; align-items: center; gap: 10px; padding: 6px 6px 12px; }
+  .sdot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+  .lane-h h3 { font-size: 15px; font-weight: 600; line-height: 1.2; }
+  .lane-h h3 .ar { display: block; font-size: 12px; font-weight: 600; color: var(--text-3); margin-top: 1px; }
+  .count { margin-left: auto; min-width: 28px; height: 26px; padding: 0 8px; border-radius: var(--r-pill); background: var(--surface); font: 600 12px/26px var(--font-body); text-align: center; }
+  .addsm { width: 30px; height: 30px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; color: var(--text-2); font-size: 18px; line-height: 1; }
+  .cards { display: grid; gap: 10px; }
+
+  .card { background: var(--surface); border-radius: var(--r-md); padding: 14px 15px 13px; box-shadow: var(--shadow-card); position: relative; }
+  .card.pending { box-shadow: var(--shadow-card), inset 3px 0 0 var(--stage-pending); }
+  .card.drag { transform: rotate(2deg) translateY(-2px); box-shadow: var(--shadow-lift); }
+  .card.sel { outline: 2px solid var(--royal); outline-offset: 2px; }
+  .ctop { display: flex; align-items: center; gap: 8px; }
+  .proj { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px 0 8px; border-radius: var(--r-pill); font-size: 12px; font-weight: 500; }
+  .proj i { width: 7px; height: 7px; border-radius: 50%; }
+  .prio { margin-left: auto; font: 700 13px var(--font-body); display: inline-flex; align-items: center; gap: 4px; }
+  .prio.urgent { color: var(--prio-urgent); }
+  .prio.high { color: var(--prio-high); }
+  .ctitle { font-weight: 500; font-size: 15px; line-height: 1.35; margin-top: 10px; }
+  .ctitle[dir="rtl"] { font-family: var(--font-ar); font-weight: 600; font-size: 16px; }
+  .reason { margin-top: 6px; font-size: 13px; color: var(--text-2); font-style: italic; }
+  .meta { display: flex; align-items: center; gap: 12px; margin-top: 12px; color: var(--text-2); font-size: 12.5px; flex-wrap: wrap; }
+  .meta span { display: inline-flex; align-items: center; gap: 5px; }
+  .meta svg { width: 14px; height: 14px; }
+  .sub { display: inline-flex; align-items: center; gap: 6px; }
+  .sub em { display: block; width: 34px; height: 5px; border-radius: 4px; background: var(--grey-200); position: relative; overflow: hidden; }
+  .sub em::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--p); background: var(--royal); border-radius: inherit; }
+  .overdue { position: relative; color: var(--scribble-red); font-weight: 600; }
+  .overdue img, .overdue svg.circ { position: absolute; left: -10px; top: -7px; width: calc(100% + 20px); height: calc(100% + 14px); color: var(--scribble-red); }
+  .claude { margin-left: auto; color: var(--royal); font-weight: 600; }
+  .card.done .ctitle { color: rgba(30,30,30,.6); }
+  .donebadge { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 50%; background: var(--yellow); display: grid; place-items: center; }
+  .donebadge svg { width: 16px; color: var(--charcoal); }
+  .card.done .ctop { padding-right: 34px; }
+  .card.ghost { background: transparent; box-shadow: none; border: 1.5px dashed var(--grey-400); height: 64px; }
+
+  .hint { display: flex; align-items: center; gap: 8px; padding: 10px 6px 2px; color: var(--text-3); font-size: 13px; }
+  .hint svg { width: 46px; color: var(--grey-400); transform: scaleY(-1) rotate(-10deg); }
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <!-- Header -->
+  <header class="hdr">
+    <button class="rbtn" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9h14M5 15h9"/></svg></button>
+    <div class="logo" aria-hidden="true"><b>L</b><i></i></div>
+    <div class="brand"><strong>Lanes</strong><span class="ar">مسارات</span></div>
+    <div class="spacer"></div>
+    <div class="viewtabs"><button class="on">Board</button><button>List</button></div>
+    <button class="rbtn" aria-label="Quick add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="rbtn bell" aria-label="Reminders"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></button>
+    <button class="rbtn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg></button>
+    <div class="search">Search tasks <kbd>/</kbd></div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero bg-royal-grid">
+    <div>
+      <div class="datechip"><div class="d num">4</div><p><b>Wednesday,</b><br>November</p></div>
+      <h1 class="mega">Today<span class="ar ar-over" lang="ar">اليوم</span></h1>
+      <p class="greet"><b>Hey Yasmine.</b> Three down, a client call at 3. Pick one thing and give it your whole attention.</p>
+      <div class="actions">
+        <button class="pill yellow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="14" height="18" rx="3" transform="rotate(-8 11 12)"/><path d="M9 9h5M9 13h3"/></svg>Pick for me <kbd>P</kbd></button>
+        <button class="pill ghost"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4"/></svg>Focus <kbd>F</kbd></button>
+      </div>
+    </div>
+
+    <svg class="loop" viewBox="0 0 160 120" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 96 C 30 60, 70 30, 96 44 C 120 57, 104 92, 82 80 C 62 69, 84 26, 140 18"/><path d="M118 8 L 141 18 L 124 38"/></svg>
+
+    <div class="glass" aria-label="Momentum">
+      <div class="lbl"><span>Momentum today</span><span>Goal 5</span></div>
+      <div class="bigcount num"><b>3.5</b><span>/5</span><em>points</em><div class="combo">×2 combo</div></div>
+      <div class="bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+        <i></i>
+        <div class="ticks"><u></u><u></u><u></u></div>
+        <svg class="spark" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><path d="M30 6 V 22 M30 38 V 54 M6 30 H 22 M38 30 H 54 M14 14 L 22 22 M38 38 L 46 46 M46 14 L 38 22 M22 38 L 14 46"/></svg>
+      </div>
+      <div class="tier"><span>Halfway. That's real.</span><small>3 tasks · 2 subtasks</small></div>
+    </div>
+
+    <div class="sticker" aria-label="6 day streak">
+      <svg class="ring" viewBox="0 0 150 150">
+        <circle cx="75" cy="75" r="74" fill="#F3C623"/>
+        <defs><path id="c" d="M75,75 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"/></defs>
+        <text textLength="350" lengthAdjust="spacing" font-family="Archivo, Arial Black, sans-serif" font-weight="900" font-size="13" fill="#1E1E1E"><textPath href="#c">KEEP THE STREAK • KEEP THE STREAK • </textPath></text>
+      </svg>
+      <div class="mid"><div><b class="num">6</b><span>days</span></div></div>
+    </div>
+  </section>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <h2>Board</h2>
+    <button class="chipbtn"><span class="dot" style="background:var(--p-blue)"></span>All projects ▾</button>
+    <button class="chipbtn">Due: this week <span class="x">✕</span></button>
+    <button class="chipbtn">Energy ▾</button>
+    <div class="spacer"></div>
+    <button class="chipbtn">Done: today ▾</button>
+  </div>
+
+  <!-- Board -->
+  <main class="board">
+    <!-- NEW -->
+    <section class="lane" aria-label="New">
+      <div class="lane-h"><span class="sdot" style="box-shadow: inset 0 0 0 2.5px var(--stage-new)"></span><h3>New<span class="ar">جديد</span></h3><span class="count">4</span><span class="addsm">+</span></div>
+      <div class="cards">
+        <article class="card">
+          <div class="ctop"><span class="proj" style="background:#E8F0FB"><i style="background:var(--p-blue)"></i>Kitebird</span><span class="prio urgent">● !!</span></div>
+          <p class="ctitle">Send final homepage banners for the winter sale</p>
+          <div class="meta"><span>Tomorrow 3:00 pm</span><span>🔔 1:00</span><span class="claude" title="Added by Claude">✳</span></div>
+        </article>
+        <article class="card sel">
+          <div class="ctop"><span class="proj" style="background:#FDF3D2"><i style="background:var(--p-yellow)"></i>Jewelry catalog</span><span class="prio high">!</span></div>
+          <p class="ctitle">Call the printer about paper stock samples</p>
+          <div class="meta"><span>Thu</span><span>~ low energy</span></div>
+        </article>
+        <article class="card">
+          <div class="ctop"><span class="proj" style="background:#EDEDED"><i style="background:var(--p-ink)"></i>Personal</span></div>
+          <p class="ctitle" dir="rtl" lang="ar">تحديث البورتفوليو على بيهانس</p>
+          <div class="meta"><span class="sub"><em style="--p:20%"></em>1/5</span><span>2 notes</span></div>
+        </article>
+        <article class="card">
+          <div class="ctop"><span class="proj" style="background:#E3F4F1"><i style="background:var(--p-teal)"></i>Café rebrand</span></div>
+          <p class="ctitle">Mascot exploration — 3 JSON prompt directions</p>
+          <div class="meta"><span>Next week</span><span>=45m</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- IN PROCESS -->
+    <section class="lane" aria-label="In process">
+      <div class="lane-h"><span class="sdot" style="background:var(--stage-progress)"></span><h3>In process<span class="ar">قيد التنفيذ</span></h3><span class="count">3</span><span class="addsm">+</span></div>
+      <div class="cards">
+        <article class="card">
+          <div class="ctop"><span class="proj" style="background:#F0ECFB"><i style="background:var(--p-violet)"></i>Northfield Studio</span><span class="prio high">!</span></div>
+          <p class="ctitle">Social grid for the fragrance launch — 9 posts</p>
+          <div class="meta"><span class="sub"><em style="--p:66%"></em>6/9</span><span class="overdue">Yesterday<svg class="circ" viewBox="0 0 220 100" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M150 12 C 100 2, 26 10, 12 42 C 0 72, 60 94, 120 90 C 182 86, 214 64, 206 38 C 198 14, 140 6, 92 14"/></svg></span><span>3 notes</span></div>
+        </article>
+        <article class="card drag">
+          <div class="ctop"><span class="proj" style="background:#E8F0FB"><i style="background:var(--p-blue)"></i>Kitebird</span></div>
+          <p class="ctitle">Fix product card spacing in the design system</p>
+          <div class="meta"><span>Today</span><span class="sub"><em style="--p:50%"></em>2/4</span></div>
+        </article>
+        <article class="card ghost" aria-hidden="true"></article>
+      </div>
+    </section>
+
+    <!-- PENDING -->
+    <section class="lane" aria-label="Pending">
+      <div class="lane-h"><span class="sdot" style="background:var(--stage-pending)"></span><h3>Pending<span class="ar">معلّق</span></h3><span class="count">2</span><span class="addsm">+</span></div>
+      <div class="cards">
+        <article class="card pending">
+          <div class="ctop"><span class="proj" style="background:#E3F4F1"><i style="background:var(--p-teal)"></i>Café rebrand</span></div>
+          <p class="ctitle">Menu layout, Arabic + English</p>
+          <p class="reason">Waiting on: their final prices</p>
+          <div class="meta"><span>Sun</span><span>1 note</span></div>
+        </article>
+        <article class="card pending">
+          <div class="ctop"><span class="proj" style="background:#FBE7EE"><i style="background:var(--p-rose)"></i>Real estate site</span></div>
+          <p class="ctitle">Webflow CMS migration</p>
+          <p class="reason">Waiting on: hosting access from their IT</p>
+          <div class="meta"><span>🔔 Fri 10:00</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- DONE -->
+    <section class="lane" aria-label="Done today">
+      <div class="lane-h"><span class="sdot" style="background:var(--stage-done)"></span><h3>Done today<span class="ar">تم</span></h3><span class="count">3</span></div>
+      <div class="cards">
+        <article class="card done">
+          <span class="donebadge"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 32 L 25 44 L 49 16"/></svg></span>
+          <div class="ctop"><span class="proj" style="background:#E8F0FB"><i style="background:var(--p-blue)"></i>Kitebird</span></div>
+          <p class="ctitle">Export icon set for dev handoff</p>
+          <div class="meta"><span>11:20 am</span></div>
+        </article>
+        <article class="card done">
+          <span class="donebadge"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 32 L 25 44 L 49 16"/></svg></span>
+          <div class="ctop"><span class="proj" style="background:#EDEDED"><i style="background:var(--p-ink)"></i>Personal</span></div>
+          <p class="ctitle">Invoice October freelance work</p>
+          <div class="meta"><span>1:05 pm</span><span>Focused 25m</span></div>
+        </article>
+        <article class="card done">
+          <span class="donebadge"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 32 L 25 44 L 49 16"/></svg></span>
+          <div class="ctop"><span class="proj" style="background:#F0ECFB"><i style="background:var(--p-violet)"></i>Northfield Studio</span></div>
+          <p class="ctitle">Reply to feedback on the nightlife flyer</p>
+          <div class="meta"><span>2:40 pm</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- POSTPONED -->
+    <section class="lane postponed" aria-label="Postponed">
+      <div class="lane-h"><span class="sdot" style="background:var(--stage-postponed)"></span><h3>Postponed<span class="ar">مؤجّل</span></h3><span class="count">2</span></div>
+      <div class="cards">
+        <article class="card">
+          <p class="ctitle" style="margin-top:0">Learn Framer motion components</p>
+          <div class="meta"><span>Back on Dec 1</span></div>
+        </article>
+        <article class="card">
+          <p class="ctitle" style="margin-top:0">Redo personal logo lockups</p>
+          <div class="meta"><span>Someday</span></div>
+        </article>
+      </div>
+      <div class="hint"><svg viewBox="0 0 140 90" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 C 40 4, 92 10, 118 62"/><path d="M98 58 L 119 66 L 126 44"/></svg>Not now isn't never.</div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

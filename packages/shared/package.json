@@ -1,0 +1,23 @@
+{
+  "name": "@lanes/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "chrono-node": "^2.10.3",
+    "date-fns": "^4.4.0",
+    "zod": "^4.6.7"
+  }
+}

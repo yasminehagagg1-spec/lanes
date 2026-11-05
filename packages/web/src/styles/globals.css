@@ -1,0 +1,145 @@
+@import 'tailwindcss';
+@import './theme.css';
+@import './fonts.css';
+
+@layer base {
+  html,
+  body {
+    background: var(--bg);
+  }
+  body {
+    margin: 0;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background: var(--yellow);
+    color: var(--charcoal);
+  }
+}
+
+/* Mega display type: wide, black, uppercase. font-stretch picks Archivo's 125% width
+   when the brand font is missing; it is ignored by Marine Elmoure. */
+@utility type-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+}
+
+@utility type-label {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role='button'] {
+    cursor: pointer;
+  }
+}
+
+/* ---- Motion (durations come from tokens, which drop to 0 with reduced motion) ---- */
+@keyframes lanes-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes lanes-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+@keyframes lanes-slide {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes lanes-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.lanes-fade {
+  animation: lanes-fade var(--dur-2) var(--ease-out);
+}
+.lanes-pop {
+  animation: lanes-pop var(--dur-2) var(--ease-out);
+}
+.lanes-slide {
+  animation: lanes-slide var(--dur-3) var(--ease-out);
+}
+.lanes-spin {
+  animation: lanes-spin 18s linear infinite;
+  transform-origin: center;
+}
+@keyframes lanes-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes lanes-stamp {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lanes-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+@keyframes lanes-twinkle {
+  50% {
+    transform: scale(0.75) rotate(20deg);
+    opacity: 0.7;
+  }
+}
+/* Hand-drawn strokes draw themselves in; the arrowhead follows the line. */
+.lanes-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: lanes-draw var(--dur-4) var(--ease-out) forwards;
+}
+.lanes-draw path + path {
+  animation-delay: calc(var(--dur-4) * 0.6);
+}
+.lanes-stamp {
+  animation: lanes-stamp var(--dur-3) var(--ease-spring);
+}
+.lanes-shimmer {
+  background: linear-gradient(90deg, var(--yellow-200), var(--white) 50%, var(--yellow-200));
+  background-size: 200% 100%;
+  animation: lanes-shimmer 2.4s linear infinite;
+}
+.lanes-twinkle {
+  animation: lanes-twinkle 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lanes-spin,
+  .lanes-shimmer,
+  .lanes-twinkle {
+    animation: none;
+  }
+}

@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Lanes · مسارات — design tokens
+   Source of truth for color, type, radius, shadow, motion.
+   Import once at the root (before Tailwind). Never hard-code hex in components.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand core (Yasmine's personal palette) ---- */
+  --royal:          #195CB6;   /* main accent, hero band, primary actions */
+  --royal-600:      #134C99;   /* hover / pressed */
+  --royal-300:      #6E9BDB;   /* grid lines on royal, focus rings on light */
+  --royal-50:       #E8F0FB;   /* tints */
+  --charcoal:       #1E1E1E;   /* text, headlines, ink buttons */
+  --grey-100:       #EDEDED;   /* app canvas */
+  --grey-200:       #E2E2E2;   /* lane background, dividers */
+  --grey-400:       #A8A8A8;   /* muted text, placeholders */
+  --grey-600:       #6B6B6B;   /* secondary text */
+  --white:          #FFFFFF;   /* cards */
+  --yellow:         #F3C623;   /* dopamine accent: done, progress fill, streak */
+  --yellow-200:     #FBE9A6;
+  --scribble-red:   #E5342B;   /* ONLY hand-drawn marks: overdue circle, "DONE" circle */
+
+  /* ---- Semantic surfaces ---- */
+  --bg:             var(--grey-100);
+  --surface:        var(--white);
+  --surface-sunk:   #F6F6F6;   /* inner bento wells (as in ref 02) */
+  --lane-bg:        #E6E6E6;
+  --text:           var(--charcoal);
+  --text-2:         var(--grey-600);
+  --text-3:         var(--grey-400);
+  --on-royal:       #FFFFFF;
+  --on-royal-2:     rgba(255,255,255,.72);
+  --border:         rgba(30,30,30,.08);
+  --ring:           var(--royal-300);
+
+  /* ---- Stages ---- */
+  --stage-new:        #1E1E1E;   /* ink outline chip */
+  --stage-progress:   #195CB6;   /* royal */
+  --stage-pending:    #E8833A;   /* warm orange (nod to ref 02), "waiting" */
+  --stage-done:       #F3C623;   /* yellow = reward */
+  --stage-postponed:  #9A9A9A;   /* muted, out of the way */
+
+  /* ---- Priority ---- */
+  --prio-urgent: #E5342B;
+  --prio-high:   #E8833A;
+  --prio-normal: transparent;
+  --prio-low:    #A8A8A8;
+
+  /* ---- Project palette (auto-assigned, cycle in order) ---- */
+  --p-blue:   #195CB6;
+  --p-yellow: #D9A900;
+  --p-ink:    #1E1E1E;
+  --p-orange: #E8833A;
+  --p-teal:   #1F9E8E;
+  --p-violet: #6B4FD8;
+  --p-rose:   #D9467A;
+  --p-olive:  #7A8A2E;
+
+  /* ---- Type ---- */
+  --font-display: "Marine Elmoure", "Archivo", "Arial Black", system-ui, sans-serif;
+  --font-body:    "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-ar:      "Madinet Al Bat", "Alexandria", "Geeza Pro", sans-serif;
+  /* Archivo fallback must be loaded with wdth 125 + wght 900 to match the wide, heavy hero type */
+
+  --fs-mega:   clamp(4.5rem, 11vw, 10rem);  /* hero "TODAY" */
+  --fs-h1:     clamp(2.25rem, 4vw, 3.5rem);
+  --fs-h2:     1.75rem;                     /* lane titles, drawer title */
+  --fs-h3:     1.125rem;                    /* card titles */
+  --fs-body:   0.9375rem;                   /* 15px */
+  --fs-small:  0.8125rem;                   /* 13px */
+  --fs-micro:  0.6875rem;                   /* 11px labels, uppercase */
+  --lh-tight:  0.86;                        /* mega display */
+  --lh-snug:   1.15;
+  --lh-body:   1.5;
+  --tracking-display: -0.02em;
+  --tracking-label:   0.08em;
+
+  /* ---- Shape (ref 02 = generous radii, pill controls) ---- */
+  --r-xs:   8px;
+  --r-sm:   14px;
+  --r-md:   20px;      /* inner cards */
+  --r-lg:   28px;      /* bento panels, cards on board */
+  --r-xl:   40px;      /* app frame / hero band */
+  --r-pill: 999px;
+
+  /* ---- Space (4pt base) ---- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px;
+
+  /* ---- Elevation (soft, mostly flat like refs) ---- */
+  --shadow-card:  0 1px 0 rgba(30,30,30,.04), 0 6px 18px -10px rgba(30,30,30,.18);
+  --shadow-lift:  0 18px 40px -16px rgba(30,30,30,.35);       /* dragging card */
+  --shadow-glass: 0 20px 50px -20px rgba(9,30,70,.55), inset 0 1px 0 rgba(255,255,255,.35);
+  --glass-bg:     rgba(255,255,255,.18);                        /* frosted cards on royal (ref 01) */
+  --glass-blur:   14px;
+
+  /* ---- Motion ---- */
+  --ease-out:    cubic-bezier(.22,1,.36,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+  --dur-1: 120ms; --dur-2: 220ms; --dur-3: 380ms; --dur-4: 700ms;
+
+  /* ---- Layout ---- */
+  --frame-max: 1440px;
+  --lane-w:    300px;
+  --lane-w-postponed: 240px;
+  --drawer-w:  480px;
+}
+
+/* Dark mode (v1.1 — keep tokens ready, ship light first) */
+:root[data-theme="dark"] {
+  --bg:           #121212;
+  --surface:      #1C1C1C;
+  --surface-sunk: #161616;
+  --lane-bg:      #191919;
+  --text:         #F2F2F2;
+  --text-2:       #B4B4B4;
+  --text-3:       #7A7A7A;
+  --border:       rgba(255,255,255,.08);
+  --stage-new:    #F2F2F2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-1: 0ms; --dur-2: 0ms; --dur-3: 0ms; --dur-4: 0ms; }
+}

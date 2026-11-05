@@ -1,0 +1,84 @@
+/* Tailwind v4 theme mapping — paste into packages/web/src/styles/globals.css
+   after `@import "tailwindcss";` and after importing tokens.css.
+   Utilities become: bg-royal, text-charcoal, bg-stage-done, rounded-lg, font-display, etc. */
+
+@import './tokens.css';
+
+@theme inline {
+  --color-royal: var(--royal);
+  --color-royal-600: var(--royal-600);
+  --color-royal-300: var(--royal-300);
+  --color-royal-50: var(--royal-50);
+  --color-charcoal: var(--charcoal);
+  --color-white: var(--white);
+  --color-on-royal: var(--on-royal);
+  --color-on-royal-2: var(--on-royal-2);
+  --color-yellow: var(--yellow);
+  --color-yellow-200: var(--yellow-200);
+  --color-scribble: var(--scribble-red);
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-sunk: var(--surface-sunk);
+  --color-lane: var(--lane-bg);
+  --color-fg: var(--text);
+  --color-fg-2: var(--text-2);
+  --color-fg-3: var(--text-3);
+  --color-border: var(--border);
+
+  --color-stage-new: var(--stage-new);
+  --color-stage-progress: var(--stage-progress);
+  --color-stage-pending: var(--stage-pending);
+  --color-stage-done: var(--stage-done);
+  --color-stage-postponed: var(--stage-postponed);
+
+  /* shadcn / 21st component compatibility — they expect these names */
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--text);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--text);
+  --color-primary: var(--royal);
+  --color-primary-foreground: var(--white);
+  --color-secondary: var(--surface-sunk);
+  --color-secondary-foreground: var(--text);
+  --color-muted: var(--surface-sunk);
+  --color-muted-foreground: var(--text-2);
+  --color-accent: var(--yellow);
+  --color-accent-foreground: var(--charcoal);
+  --color-destructive: var(--scribble-red);
+  --color-input: var(--border);
+  --color-ring: var(--ring);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+  --font-ar: var(--font-ar);
+
+  --radius-xs: var(--r-xs);
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+  --shadow-glass: var(--shadow-glass);
+
+  --ease-out: var(--ease-out);
+  --ease-spring: var(--ease-spring);
+}
+
+/* Arabic runs: any element with lang="ar" or dir="rtl" switches font */
+:where([lang='ar'], [dir='rtl']) {
+  font-family: var(--font-ar);
+}
+
+/* The royal hero grid pattern (ref 01) */
+.bg-royal-grid {
+  background-color: var(--royal);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+}

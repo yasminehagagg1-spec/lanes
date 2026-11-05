@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Full-bleed version for maskable icons: the mark sits inside the 80% safe zone. -->
+  <rect width="512" height="512" fill="#195cb6"/>
+  <g transform="translate(76.8 76.8) scale(0.7)">
+    <path d="M176 92 V300 H340" fill="none" stroke="#ffffff" stroke-width="68" stroke-linecap="square"/>
+    <path d="M112 410 C 206 366, 300 360, 392 386" fill="none" stroke="#f3c623" stroke-width="36" stroke-linecap="round"/>
+  </g>
+</svg>

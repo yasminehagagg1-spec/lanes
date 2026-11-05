@@ -1,0 +1,17 @@
+/* Brand fonts — licensed files live in packages/web/public/fonts/ (not committed).
+   If a file is missing the browser falls through to the next family in tokens.css:
+   Archivo (wide, black) for display, Alexandria for Arabic, both from Google Fonts. */
+
+@font-face {
+  font-family: 'Marine Elmoure';
+  src: url('/fonts/MarineElmoure.woff2') format('woff2');
+  font-weight: 100 900; /* single weight; prevents faux-bold when 900 is requested */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Madinet Al Bat';
+  src: url('/fonts/MadinetAlBat.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
